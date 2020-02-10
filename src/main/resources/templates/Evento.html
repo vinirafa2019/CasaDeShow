@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="Layout">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa de Show</title>
+</head>
+<section layout:fragment="conteudo"> 
+<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}"> 
+	<button type="button" class="close" data-dismiss="alert"></button>
+	<span th:text="${mensagem}"></span>
+</div>
+  <form class="form-horinzontal" method="POST" action="/eventos">
+
+	<div class="row">
+		<h2 class="bd1">Evento</h2>
+	</div>
+	<div class="cardy-body bd">
+		<div class="row">
+			<label for="evento" class="col-1 col-form-label">Evento</label>
+			<div>
+				<input type="text" class="form-control" id="evento" name="descricao">
+			</div>
+		</div>
+		<div class="row">
+			<label for="capacidade" class="col-1 col-form-label">Capacidade</label>
+			<div>
+				<input type="text" class="form-control" id="capacidade" name="capacidade">
+			</div>
+		</div>
+		<div class="row">
+			<label for="data" class="col-sm-1 col-form-label">Data</label>
+			<div>
+				<input type="text" class="form-control" id="data" name="data">
+			</div>
+		</div>
+		<div class="row">
+			<label for="Valoringresso" class="col-sm-1 col-form-label">Valor
+				do ingresso</label>
+			<div>
+				<input type="text" class="form-control" id="Valoringresso" name="Valoringresso">
+			</div>
+		</div>
+		<div class="form-row align-items-center">
+			<div class="col-auto my-1">
+				<label class="mr-sm-2 sr-only" for="casashow">Preference</label>
+				<select class="custom-select mr-sm-2" id="casashow">
+					<option selected>Local do Show</option>
+					<option value="1">One</option>
+					<option value="2">Two</option>
+					<option value="3">Three</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-row align-items-center">
+			<div class="col-auto my-1">
+				<label class="mr-sm-2 sr-only" for="nomeevento">Preference</label>
+				<select class="custom-select mr-sm-2" id="nomeevento" name="nomeevento">
+					<option selected>Escolha um evento</option>
+					<option th:each="nomes : ${todosCasasShows}" th:value="${nomeevento}" th:text="${nomeevento.descricao}"></option>
+				</select>
+			</div>	
+		</div>
+		<div>
+			<button type="submit" class="btn btn-primary but">Enviar</button>
+		</div>
+	</div>
+  </form>	
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th class="text-center">id</th>
+				<th>Nome</th>
+				<th class="text-center">Capacidade</th>
+				<th class="text-center">Preço do ingresso</th>
+				<th class="text-center">Casa de show</th>
+				<th class="text-center">Editar</th>
+				<th class="text-center">deletar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="evento : ${evento}">
+				<td class="text-center" th:text="${evento.id}">1</td>
+				<td th:text="${evento.descricao}"></td>
+				<td th:text="${evento.capacidade}"></td>
+				<td class="text-center" th:text="|R$ ${{evento.Valoringresso}}|"></td>
+			
+				
+				<td class="text-center"><a class="btn btn-link"
+					th:href="@{/eventos/{id}(codigo=${evento.id})}"> <i
+						class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i>
+				</a></td>
+				<td><a class="btn btn-link" data-toggle="modal"
+					data-target="#confirmacaoExclusaoModal"
+					th:attr="data-id=${evento.id} , data-descricao=${evento.descricao}">
+						<i class="fas fa-file-excel" data-toggle="tooltip" title="Excluir"></i>
+				</a></td>
+			</tr>
+			<tr>
+				<td colspan="7" th:if="${#lists.isEmpty(evento)}">Nenhum
+					titulo encontrado</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+</html>

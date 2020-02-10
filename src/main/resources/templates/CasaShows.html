@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="Layout">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa de Show</title>
+</head>
+<section layout:fragment="conteudo">
+<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}"> 
+	<button type="button" class="close" data-dismiss="alert"></button>
+	<span th:text="${mensagem}"></span>
+</div> 
+  <form class="form-horinzontal" method="POST" action="/casadeshow" th:object="${casas}">
+	<div class="row">
+		<h2 class="bd1">Casa de Show</h2>
+	</div>
+	<div class="cardy-body bd">
+		<div class="row">
+			<label for="casadeshow" class="col-1 col-form-label">Casa de Show</label>
+			<div>
+				<input type="text" class="form-control" id="casadeshow" name="nomecasa">
+			</div>
+		</div>
+		<div class="row">
+			<label for="Endereco" class="col-1 col-form-label">Endereço</label>
+			<div>
+				<input type="text" class="form-control" id="Endereco" name="endereco">
+			</div>
+		</div>
+		<div>
+			<button type="submit" class="btn btn-primary but">Enviar</button>
+		</div>
+	</div>
+  </form>	
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th class="text-center">id</th>
+				<th>Nome</th>
+				<th class="text-center">Endereço</th>
+				<th class="text-center">Editar</th>
+				<th class="text-center">Excluir</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="casas : ${casas}">
+				<td class="text-center" th:text="${casas.id}">1</td>
+				<td th:text="${casas.nomecasa}"></td>
+				<td th:text="${casas.endereco}"></td>
+				<td class="text-center">
+					<a class="btn btn-link" th:href="@{/casadeshow/{id}(id=${casas.id})}">
+						<i class="fas fa-pencil-alt"  data-toggle="tooltip" title="Editar">EDITAR</i>						
+					</a>
+				</td>
+				<td>
+						<a class="btn btn-link" data-toggle="modal" data-target="#confirmacaoExclusaoModal"
+							th:attr="data-id=${casas.id} , data-descricao=${casas.nomecasa}">
+						<i class="fas fa-file-excel" data-toggle="tooltip" title="Excluir">Excluir</i>
+					</a>	
+				</td>
+			</tr>
+			<tr>
+				<td colspan="7" th:if="${#lists.isEmpty(casas)}">Nenhum
+					titulo encontrado</td>
+			</tr>
+		</tbody>
+	</table>
+	<div layout:insert="DialogoConfirmacaoExclusao"></div>
+</section>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Login Casa de Show</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" th:ref="/css/Style.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="cardy container">
+		<div th:if="${param.error}">
+			<div class="alert alert-danger">Usuario e/ou senha inválidos</div>
+		</div>
+		<div th:if="${param.logout}">
+			<div class="alert alert-info">Saiu do sistema!!</div>
+		</div>
+		<h1>Login</h1>
+		<form action="login" method="POST">
+			<div class="form-group">
+				<label for="username">Nome</label> <input type="text"
+					name="username" class="form-control" value="" id="username">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Senha</label> <input
+					type="password" class="form-control" name="password" value="">
+			</div>
+			<button type="submit" class="btn btn-primary" data-whatever="username">Entrar</button>	
+			<a class="btn btn-primary" data-toggle="modal"
+				data-target="#cadastroModal"> <span></span>Cadastrar
+			</a>
+		</form>
+			<div class="modal fade" id="cadastroModal" role="dialog">
+				<div class="modal-dialog">
+					<form method="post" action="/login">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title">Cadastro de Usuario</h4>
+							</div>
+							<div class="modal-body">
+								<label for="nome">Nome</label> <input class="form-control" name="usarname" id="nome"> 
+									<label for="senha">Senha</label> <input	type="password" class="form-control" name="password" id="senha">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"data-dismiss="modal">Fechar</button>
+								<button type="submit" class="btn btn-primary">Salvar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/funcoes.js"></script>
+</body>
+</html>
+
