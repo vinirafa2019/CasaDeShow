@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="Layout">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa de Show</title>
+</head>
+<section layout:fragment="conteudo"> 
+  <form class="form-horinzontal" method="POST" action="/eventos" th:object="${evento}">
+<div layout:insert="Mensagemerro"></div>
+<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}"> 
+	<button type="button" class="close" data-dismiss="alert"></button>
+	<span th:text="${mensagem}"></span>
+</div>
+
+	<div class="row">
+		<h2 class="bd1">Evento</h2>
+	</div>
+	<div class="cardy-body bd">
+	<input type="hidden" th:field="*{id}">
+		<div class="row">
+			<label for="descricao" class="col-1 col-form-label">Evento</label>
+			<div>
+				<input type="text" class="form-control" id="descricao" th:field="*{descricao}"
+				th:classappend="${#fields.hasErrors('descricao')} ? is-invalid">
+			</div>
+		</div>
+		<div class="row">
+			<label for="capacidade" class="col-1 col-form-label">Capacidade</label>
+			<div>
+				<input type="text" class="form-control" id="capacidade" th:field="*{capacidade}"
+				th:classappend="${#fields.hasErrors('capacidade')} ? is-invalid">
+			</div>
+		</div>
+		<div class="row">
+			<label for="data" class="col-sm-1 col-form-label">Data</label>
+			<div>
+				<input type="text" class="form-control" id="data" th:field="*{data}"
+				th:classappend="${#fields.hasErrors('data')} ? is-invalid">
+			</div>
+		</div>
+		<div class="row">
+			<label for="Valoringresso" class="col-sm-1 col-form-label">Valor
+				do ingresso</label>
+			<div>
+				<input type="text" class="form-control" id="Valoringresso" th:field="*{Valoringresso}"
+				th:classappend="${#fields.hasErrors('Valoringresso')} ? is-invalid">
+			
+			</div>
+		</div>
+		<div class="form-row align-items-center">
+			<div class="col-auto my-1">
+				<label class="mr-sm-2 sr-only" for="casashow">Preference</label>
+				<select class="custom-select mr-sm-2" id="nomecasa" name="endereco1">
+						<option th:each="endereco : ${casas}" th:value="${endereco}" th:text="${endereco.nomecasa}"></option>
+				</select>
+			</div>
+		</div>
+		<div class="form-row align-items-center">
+			<div class="col-auto my-1">
+				<label class="mr-sm-2 sr-only" for="status">Estilo</label>
+					<select class="form-control" name="status" >
+						<option th:each="status : ${todosEstilos}" th:value="${status}" th:text="${status.descricao}"></option>
+					</select>
+			</div>	
+		</div>
+		<div>
+			<button type="submit" class="btn btn-primary but">Enviar</button>
+		</div>
+	</div>
+  </form>	
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th class="text-center">id</th>
+				<th>Nome</th>
+				<th class="text-center">Capacidade</th>				
+				<th class="text-center">Preço do ingresso</th>
+				<th class="text-center">Casa de show</th>
+				<th class="text-center">Editar</th>
+				<th class="text-center">deletar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="eventos : ${eventos}">				
+				<td class="text-center" th:text="${eventos.id}"></td>
+				<td th:text="${eventos.descricao}"></td>
+				<td class="text-center" th:text="${eventos.capacidade}"></td>
+				<td class="text-center" th:text="|R$ ${{eventos.Valoringresso}}|"></td>		
+				<td class="text-center" th:text="${endereco1}"></td>
+								
+				<td class="text-center"><a class="btn btn-link"
+					th:href="@{/eventos/{id}(id=${eventos.id})}"> <i
+					class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar">Editar</i></a>
+				</td>
+				<td class="text-center"><a class="btn btn-link" data-toggle="modal"	data-target="#confirmacaoExclusaoModal1"
+					th:attr="data-id=${eventos.id} , data-descricao=${eventos.descricao}">
+					<i class="fas fa-file-excel" data-toggle="tooltip" title="Excluir">Excluir</i></a>
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td colspan="7" th:if="${#lists.isEmpty(eventos)}">Nenhum titulo encontrado</td>
+			</tr>
+		</tbody>
+	</table>
+	<div layout:insert="DialogoConfirmacaoExclusao1"></div>
+</section>
+</html>

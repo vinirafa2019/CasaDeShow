@@ -1,15 +1,18 @@
 package com.projeto.principal.model;
 
-public enum CasasShows {
+public enum TodosEstilos{
 
-	PENDENTE("Pendente"), 
-	RECEBIDO("Recebido");
+	Axe("Axé"),
+	POP("Pop"),
+	ROCK("Rock"),
+	FUNK("Funk"),
+	SERTANEJO("Sertanejo");
 
-
+	
 	
 	private String descricao;
 	
-	CasasShows(String descricao) {
+	TodosEstilos(String descricao) {
 		this.descricao=descricao;
 	}
 

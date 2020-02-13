@@ -1,9 +1,14 @@
 package com.projeto.principal.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 public class CasaShow {
@@ -11,10 +16,26 @@ public class CasaShow {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	private String nomecasa;
+	
+	
+	@NotEmpty(message="Campo Casa Show nao pode ficar vazio!!!")
+	@Size(max = 50, message="Favor preencher o campo Casa Show com ate 50 caracteres")
+	private String nomecasa;	
+	
+	@NotEmpty(message="Campo Endereço nao pode ficar vazio")
+	@Size(max = 50, message="Favor preencher o campo Endereço com no maximo 50 caracteres")
 	private String endereco;
 	
+	
+	@OneToMany
+	private List <Evento> endereco1;
+	
+	public List<Evento> getEndereco1() {
+		return endereco1;
+	}
+	public void setEndereco1(List<Evento> endereco1) {
+		this.endereco1 = endereco1;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -33,6 +54,9 @@ public class CasaShow {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
+	
+
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -26,63 +26,48 @@ public class CasaShowController {
 	@Autowired	
 	private CasasShowsRep casas;
 
-	@RequestMapping("/casadeshow")
-	public String casa() {
-		return "CasaShows";
+	@RequestMapping
+	public ModelAndView casa() {
+		ModelAndView mv=new ModelAndView("CasaShows");
+		mv.addObject(new CasaShow());
+		List<CasaShow>todasCasas = casas.findAll();
+		mv.addObject("casas",todasCasas);
+		return mv;
 	}
 
 			
 	@RequestMapping(method = RequestMethod.POST)
-	public String salvar(@Validated CasaShow casa, Errors errors,RedirectAttributes attributes) {
+	public String salvar(@Validated CasaShow casa,RedirectAttributes attributes ,Errors errors) {		
+		ModelAndView mv= new ModelAndView("CasaShows");
+		if(errors.hasErrors()) {			
+			List<CasaShow>todasCasas = casas.findAll();
+			mv.addObject("casas",todasCasas);
+			return "redirect:/casadeshow";
+		}		
 		casas.save(casa);
-		attributes.addFlashAttribute("mensagem", " Casa de Show salva com sucesso");		
-		return "redirect:/casadeshow";
-	} 
-	@RequestMapping
-	public ModelAndView pesquisa() {	
+				
+		mv.addObject("mensagem", " Casa de Show salva com sucesso");		
 		List<CasaShow>todasCasas = casas.findAll();
-		ModelAndView mv=new ModelAndView("CasaShows");
-		mv.addObject("casas",todasCasas);
-		mv.addObject(new CasaShow());
-		return mv;
+		mv.addObject("casas",todasCasas);		
+		return "redirect:/casadeshow";
 	}
+	
 	@RequestMapping("{id}")
-	public ModelAndView edicao(@PathVariable("id") CasaShow casa) {		
+	public ModelAndView edicao(@PathVariable ("id") CasaShow casa) {				
 		ModelAndView mv = new ModelAndView("CasaShows");
 		mv.addObject(casa);
+		List<CasaShow>todasCasas = casas.findAll();
+		mv.addObject("casas",todasCasas);	
 		return mv;
 	}
 	
 	@RequestMapping(value="{id}" , method =RequestMethod.POST)
 	public String excluir(@PathVariable Long id,RedirectAttributes attributes) {
-		casas.deleteById(id);
-		
+		casas.deleteById(id);		
 		attributes.addFlashAttribute("mensagem", "Titulo excluído com sucesso");
-		return "redirect:/casadeshow";
-		
+		return "redirect:/casadeshow";		
 	}
 }
-//@RequestMapping(value="/casas")
-//public ModelAndView view() {
-//	List<CasaShow> todasCasas = cshow.findAll();
-//	ModelAndView mv = new ModelAndView("CadastroCasa");
-//	mv.addObject("cshow", todasCasas);
-//	mv.addObject(new CasaShow());
-//	mv.addObject("mensagem", "Casa Cadastrada com sucesso");
-//	return mv;
-//}
-//
-//
-//@RequestMapping(value="/casas", method = RequestMethod.POST)
-//public ModelAndView salvar(CasaShow casashow) {
-//	this.view();
-//	
-//	cshow.save(casashow);
-//	//Salvar no banco de dados
-//	
-//	return view();
-//	
-//}
 
 
 

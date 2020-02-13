@@ -3,10 +3,10 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<div class="modal fade" id="confirmacaocadastroModal" tabindex="-1" data-keyboard="false" data-backdrop="static">
+<div class="modal fade" id="confirmacaocadastroModal" tabindex="+1" data-keyboard="false" data-backdrop="static">
 	<div class="modal-dialog">
-		<form th:attr="data-url-base='/home'" method="POST">
-		<input type="hidden" name="_method" value="DELETE">
+		<form th:attr="data-url-base='/login'" method="POST">
+		<input type="hidden" name="_method" value="SAVE">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-tittle">Cadastro de Usuario</h4>

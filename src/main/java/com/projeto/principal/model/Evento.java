@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMax;
@@ -27,44 +27,54 @@ public class Evento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@NotEmpty(message = "Descrição não pode ser nulo")
 	@Size(max = 60,message="A descricao nao pode conter mais que 60 caracteres")
 	private String descricao;
 	
-	
-	private float capacidade;
+	@NotNull(message ="Valor não pode ser nulo")
+	@DecimalMin(value="1", message="Capacidade nao pode ser menor que 1")
+	private int capacidade;
 	
 	@NotNull(message = "Data não pode ser nulo")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date data;
 	
-	@NotNull(message = "Valor não pode ser nulo")
-	@DecimalMin(value="0.01", message="valor nao pode ser menor que 0,01")
+	@NotNull(message = "Valor do ingresso não pode ser nulo")
+	@DecimalMin(value="0.01", message="Valor do ingresso nao pode ser menor que 0,01")
 	@DecimalMax(value ="9999999999.99",message="Valor no pode ser mais que 9.999.999.999,99 ")
 	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal Valoringresso;
 	
-	@Enumerated(EnumType.STRING)
-	private CasasShows nomes;
 	
+
+	
+	@ManyToOne
+	private CasaShow endereco1;
+
+	public CasaShow getEndereco1() {
+		return endereco1;
+	}
+	public void setEndereco1(CasaShow endereco1) {
+		this.endereco1 = endereco1;
+	}
 	public String getDescricao() {
 		return descricao;
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-	
+	}	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public float getCapacidade() {
+	public int getCapacidade() {
 		return capacidade;
 	}
-	public void setCapacidade(float capacidade) {
+	public void setCapacidade(int capacidade) {
 		this.capacidade = capacidade;
 	}
 	public Date getData() {
@@ -79,6 +89,7 @@ public class Evento {
 	public void setValoringresso(BigDecimal valoringresso) {
 		Valoringresso = valoringresso;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

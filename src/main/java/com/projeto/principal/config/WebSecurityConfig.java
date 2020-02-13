@@ -37,8 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// TODO Auto-generated method stub
 		http.
 		csrf().disable()
-		.authorizeRequests()
-		
+		.authorizeRequests()		
 		.antMatchers("/home").hasAnyRole("home")
 		.antMatchers("/casadeshow").hasAnyRole("casashow")
 		.antMatchers("/eventos").hasAnyRole("eventos")
@@ -62,9 +61,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
      
         auth.inMemoryAuthentication()
-                .withUser("vinicius").password("{noop}").roles("home","casashow","eventos")
+                .withUser("vinicius").password("{noop}Fatima@12").roles("home","casashow","eventos","historico")
                 .and()
-                .withUser("rafa").password("{noop}").roles("home","casashow","eventos","historico");
+                .withUser("rafa").password("{noop").roles("home","casashow","eventos","historico");
 
     }
 }

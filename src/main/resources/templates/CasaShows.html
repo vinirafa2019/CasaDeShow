@@ -9,32 +9,37 @@
 <title>Casa de Show</title>
 </head>
 <section layout:fragment="conteudo">
+ <form class="form-horinzontal" method="POST" action="/casadeshow" th:object="${casaShow}">
 <div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}"> 
 	<button type="button" class="close" data-dismiss="alert"></button>
 	<span th:text="${mensagem}"></span>
 </div> 
-  <form class="form-horinzontal" method="POST" action="/casadeshow" th:object="${casas}">
+<div layout:insert="MensagemErro"></div>
 	<div class="row">
 		<h2 class="bd1">Casa de Show</h2>
 	</div>
 	<div class="cardy-body bd">
+	<input type="hidden" th:field="*{id}">
 		<div class="row">
-			<label for="casadeshow" class="col-1 col-form-label">Casa de Show</label>
+			<label for="nomecasa" class="col-1 col-form-label">Casa de Show</label>
 			<div>
-				<input type="text" class="form-control" id="casadeshow" name="nomecasa">
+				<input type="text" class="form-control" id="nomecasa" name="endereco1" th:field="*{nomecasa}"
+				th:classappend="${#fields.hasErrors('nomecasa')} ? is-invalid">
 			</div>
 		</div>
 		<div class="row">
-			<label for="Endereco" class="col-1 col-form-label">Endereço</label>
+			<label for="endereco" class="col-1 col-form-label">Endereço</label>
 			<div>
-				<input type="text" class="form-control" id="Endereco" name="endereco">
+				<input type="text" class="form-control" id="endereco"name="endereco1" th:field="*{endereco}" 
+				th:classappend="${#fields.hasErrors('endereco')} ? is-invalid">
 			</div>
 		</div>
 		<div>
-			<button type="submit" class="btn btn-primary but">Enviar</button>
+			<button type="submit" class="btn btn-primary but">Salvar</button>
 		</div>
 	</div>
   </form>	
+  
 	<table class="table table-bordered table-striped">
 		<thead>
 			<tr>
@@ -51,9 +56,7 @@
 				<td th:text="${casas.nomecasa}"></td>
 				<td th:text="${casas.endereco}"></td>
 				<td class="text-center">
-					<a class="btn btn-link" th:href="@{/casadeshow/{id}(id=${casas.id})}">
-						<i class="fas fa-pencil-alt"  data-toggle="tooltip" title="Editar">EDITAR</i>						
-					</a>
+					<a class="btn btn-link" th:href="@{/casadeshow/{id}(id=${casas.id})}">EDITAR</a>
 				</td>
 				<td>
 						<a class="btn btn-link" data-toggle="modal" data-target="#confirmacaoExclusaoModal"
