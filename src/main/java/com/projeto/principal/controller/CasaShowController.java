@@ -37,19 +37,20 @@ public class CasaShowController {
 
 			
 	@RequestMapping(method = RequestMethod.POST)
-	public String salvar(@Validated CasaShow casa,RedirectAttributes attributes ,Errors errors) {		
+	public ModelAndView salvar(@Validated CasaShow casa,Errors errors,RedirectAttributes attributes) {		
 		ModelAndView mv= new ModelAndView("CasaShows");
 		if(errors.hasErrors()) {			
 			List<CasaShow>todasCasas = casas.findAll();
 			mv.addObject("casas",todasCasas);
-			return "redirect:/casadeshow";
+			return mv;
 		}		
 		casas.save(casa);
 				
-		mv.addObject("mensagem", " Casa de Show salva com sucesso");		
+		mv.addObject("mensagem", " Casa de Show salva com sucesso");
+		mv.addObject(new CasaShow());
 		List<CasaShow>todasCasas = casas.findAll();
 		mv.addObject("casas",todasCasas);		
-		return "redirect:/casadeshow";
+		return mv;
 	}
 	
 	@RequestMapping("{id}")
@@ -62,9 +63,9 @@ public class CasaShowController {
 	}
 	
 	@RequestMapping(value="{id}" , method =RequestMethod.POST)
-	public String excluir(@PathVariable Long id,RedirectAttributes attributes) {
-		casas.deleteById(id);		
-		attributes.addFlashAttribute("mensagem", "Titulo excluído com sucesso");
+	public String excluir(@PathVariable Long id,RedirectAttributes attributes) {			
+		casas.deleteById(id);
+		attributes.addFlashAttribute("mensagem", "Casa de Show excluída com sucesso");
 		return "redirect:/casadeshow";		
 	}
 }

@@ -5,7 +5,7 @@
 
 <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
 	<div th:each=" detailedErrors : ${#fields.detailedErrors()}">
-		<span th:text="${detailedErrors.message}"></span>
+		<span>Erro ao tentar excluir A casa de Show.Não foi possivel pois a mesma tem eventos cadastrados</span>
 	</div>
 </div>
 </html>

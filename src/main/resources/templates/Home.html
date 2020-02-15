@@ -8,22 +8,26 @@
 <title>Casa de Show</title>
 </head>
 <section layout:fragment="conteudo">
-<form method="POST" action="/compras">
-	<div class="card text-center" th:object="${evento}">
-		<div class="card-header">
-			<div class="card-tittle">
-				<h1>Bem Vindo</h1>
+	<form method="post" action="/">
+		<div class="card text-center" th:object="${evento}">
+			<div class="card-header alert alert-danger" th:if="${!#strings.isEmpty(mensagem)}">
+				<button type="button" class="close" data-dismiss="alert"></button>
+				<span th:text="${mensagem}">Evento salvo com sucesso</span>
 			</div>
+				<div class="card-tittle">
+					<h1>Bem Vindo</h1>
+				</div>
+			<div class="list-group-item" th:each="eventos: ${eventos}">
+				<h5 th:text="${eventos.descricao}"></h5>
+				<h6 th:text="|Preço do ingresso: R$ ${{eventos.Valoringresso}}|"></h6>
+				<h6 th:text="|Ingressos Restantes: ${{eventos.data}} |"></h6>
+				<h6 th:text="|Local Do Evento: ${eventos.endereco.nomecasa}|"></h6>
+				<h6 th:text="|Ingressos Restantes: ${eventos.qtddisponivel} |"></h6>
+				<a  type="submit"class="btn btn-primary" th:href="@{/{id}(id=${eventos.id})}">Comprar</a>
+			</div>
+				<h3 th:if="${#lists.isEmpty(eventos)}">Nenhum Evento Cadastrado</h3>
 		</div>
-		<div class="list-group-item" th:each="eventos: ${eventos}">
-    		<h5 th:text="${eventos.descricao}"></h5>
-    		<h6  th:text="|Preço do ingresso R$ ${{eventos.Valoringresso}}|"></h6>
-   			<h6 th:text="|Capacidade Maxima: ${eventos.capacidade}|"></h6>
-			<button  type="submit" class="btn btn-primary">Comprar</button>
- 		</div>				
-
-	</div>
-</form>
+	</form>
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>

@@ -10,10 +10,10 @@
 </head>
 <section layout:fragment="conteudo"> 
   <form class="form-horinzontal" method="POST" action="/eventos" th:object="${evento}">
-<div layout:insert="Mensagemerro"></div>
+<div layout:insert="MensagemErro"></div>
 <div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}"> 
 	<button type="button" class="close" data-dismiss="alert"></button>
-	<span th:text="${mensagem}"></span>
+	<span th:text="${mensagem}">Evento salvo com sucesso</span>
 </div>
 
 	<div class="row">
@@ -54,15 +54,17 @@
 		<div class="form-row align-items-center">
 			<div class="col-auto my-1">
 				<label class="mr-sm-2 sr-only" for="casashow">Preference</label>
-				<select class="custom-select mr-sm-2" id="nomecasa" name="endereco1">
-						<option th:each="endereco : ${casas}" th:value="${endereco}" th:text="${endereco.nomecasa}"></option>
+				<select class="custom-select mr-sm-2" id="nomecasa" th:field="*{endereco}">
+				<option value="">Escolha uma Casa de Show</option>
+						<option th:each="ende : ${casas}" th:value="${ende.id}" th:text="${ende.nomecasa}"></option>
 				</select>
 			</div>
 		</div>
 		<div class="form-row align-items-center">
 			<div class="col-auto my-1">
 				<label class="mr-sm-2 sr-only" for="status">Estilo</label>
-					<select class="form-control" name="status" >
+					<select class="form-control" th:field="*{estilos}">
+					<option value="">Escolha um Genero Musical</option>
 						<option th:each="status : ${todosEstilos}" th:value="${status}" th:text="${status.descricao}"></option>
 					</select>
 			</div>	
@@ -89,9 +91,8 @@
 				<td class="text-center" th:text="${eventos.id}"></td>
 				<td th:text="${eventos.descricao}"></td>
 				<td class="text-center" th:text="${eventos.capacidade}"></td>
-				<td class="text-center" th:text="|R$ ${{eventos.Valoringresso}}|"></td>		
-				<td class="text-center" th:text="${endereco1}"></td>
-								
+				<td class="text-center" th:text="|R$ ${#numbers.formatCurrency(eventos.Valoringresso)}|"></td>		
+				<td class="text-center"  th:text="${eventos.endereco.nomecasa}"></td>								
 				<td class="text-center"><a class="btn btn-link"
 					th:href="@{/eventos/{id}(id=${eventos.id})}"> <i
 					class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar">Editar</i></a>

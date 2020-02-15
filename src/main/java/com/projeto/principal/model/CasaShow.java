@@ -2,6 +2,7 @@ package com.projeto.principal.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +28,7 @@ public class CasaShow {
 	private String endereco;
 	
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "endereco",orphanRemoval = true)
 	private List <Evento> endereco1;
 	
 	public List<Evento> getEndereco1() {

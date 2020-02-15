@@ -36,10 +36,3 @@ $('#confirmacaoExclusaoModal1').on('show.bs.modal' ,function(event){
 	 
 });
 
-
-
-
-
-
-
-

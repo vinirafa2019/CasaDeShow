@@ -4,10 +4,12 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Entity;
-
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,6 +37,7 @@ public class Evento {
 	@NotNull(message ="Valor não pode ser nulo")
 	@DecimalMin(value="1", message="Capacidade nao pode ser menor que 1")
 	private int capacidade;
+	private int qtddisponivel;
 	
 	@NotNull(message = "Data não pode ser nulo")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -49,15 +52,32 @@ public class Evento {
 	
 	
 
-	
 	@ManyToOne
-	private CasaShow endereco1;
-
-	public CasaShow getEndereco1() {
-		return endereco1;
+	@JoinColumn(name = "endereco_id", nullable =false)
+	@NotNull(message = "Cadastre ou selecione uma Casa de Show")
+	private CasaShow endereco;
+	
+	@NotNull(message="Por favor  escolha um genero")
+	@Enumerated(EnumType.STRING)
+	private TodosEstilos estilos;
+	
+	public TodosEstilos getEstilos() {
+		return estilos;
 	}
-	public void setEndereco1(CasaShow endereco1) {
-		this.endereco1 = endereco1;
+	public void setEstilos(TodosEstilos estilos) {
+		this.estilos = estilos;
+	}
+	public int getQtddisponivel() {
+		return qtddisponivel;
+	}
+	public void setQtddisponivel(int qtddisponivel) {
+		this.qtddisponivel = qtddisponivel;
+	}
+	public CasaShow getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(CasaShow endereco) {
+		this.endereco = endereco;
 	}
 	public String getDescricao() {
 		return descricao;
@@ -112,7 +132,7 @@ public class Evento {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
+	}			
 }
 
 

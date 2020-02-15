@@ -27,6 +27,7 @@ import com.projeto.principal.repository.EventosRep;
 public class EventosController {
 	
 	private static final String EVENTO_VIEW ="Eventos";
+	private static final boolean btncompra = false;
 	@Autowired
 	private EventosRep eventos;
 	@Autowired
@@ -45,23 +46,30 @@ public class EventosController {
 	}
 
 			
+	@SuppressWarnings("unused")
 	@RequestMapping(method = RequestMethod.POST)
-	public String salvar(@Validated Evento evento, Errors errors,RedirectAttributes attributes) {		
+	public ModelAndView salvar(@Validated Evento evento, Errors errors,RedirectAttributes attributes) {		
 		ModelAndView mv= new ModelAndView("Eventos");
 		if(errors.hasErrors()) {			
+		
 			List<Evento>todosEventos = eventos.findAll();
 			mv.addObject("eventos",todosEventos);
 			List<CasaShow>todasCasas = casas.findAll();
 			mv.addObject("casas",todasCasas);
-			return EVENTO_VIEW;
+			return mv;
 		}		
+		evento.setQtddisponivel(evento.getCapacidade());
 		eventos.save(evento);
 				
 		mv.addObject("mensagem", " Evento salvo com sucesso");		
+		mv.addObject(new Evento());
 		List<Evento>todosEventos = eventos.findAll(); 
 		mv.addObject("eventos",todosEventos);
+		List<CasaShow>todasCasas = casas.findAll();
+		mv.addObject("casas",todasCasas);
+		
 
-		return "redirect:/eventos";
+		return mv;
 	}
 	
 	@RequestMapping("{id}")
@@ -84,7 +92,7 @@ public class EventosController {
 	@ModelAttribute("todosEstilos")
 	public List<TodosEstilos>todosStatusTitulo(){
 		return Arrays.asList(TodosEstilos.values());
-	}
+	}	
 }
 
 

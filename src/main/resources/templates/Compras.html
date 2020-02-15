@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="Layout">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Suas Compras</title>
 </head>
-<body>
-
-</body>
+<section layout:fragment="conteudo">
+	<div>
+			<div class="list-group-item" th:foreach="${eventos}">
+				<h5 th:text="${descricao}"></h5>
+				<h6 th:text="|Preço do ingresso: R$ ${{Valoringresso}}|"></h6>
+				<h6 th:text="|Local Do Evento: ${nomecasa}|"></h6>
+				<h6 id="resultado" th:text="|Ingressos Restantes: ${qtddisponivel} |"></h6>
+				<button type="submit"class="btn btn-primary"> <span></span>Comprar</button>
+			</div>
+	</div>
+	
+	
+	
+</section>
 </html>
