@@ -8,36 +8,30 @@ import javax.persistence.Id;
 
 
 
+
 @Entity
-public class User {
+public class Usuarios {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private String password;
+	private String password;
+	
     private String username;
 
-    public String getpassword() {
+	public String getpassword() {
         return password;
     }
-
     public void setpassword(String password) {
         this.password = password;
     }
-
     public String getusername() {
         return username;
     }
-
     public void setusername(String username) {
         this.username = username;
     }
-
-
-
-
-   
 }	
 

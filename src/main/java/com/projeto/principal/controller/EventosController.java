@@ -27,7 +27,6 @@ import com.projeto.principal.repository.EventosRep;
 public class EventosController {
 	
 	private static final String EVENTO_VIEW ="Eventos";
-	private static final boolean btncompra = false;
 	@Autowired
 	private EventosRep eventos;
 	@Autowired
@@ -46,7 +45,7 @@ public class EventosController {
 	}
 
 			
-	@SuppressWarnings("unused")
+
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView salvar(@Validated Evento evento, Errors errors,RedirectAttributes attributes) {		
 		ModelAndView mv= new ModelAndView("Eventos");

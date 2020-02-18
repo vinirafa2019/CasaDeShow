@@ -28,8 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		DaoAuthenticationProvider provider= new DaoAuthenticationProvider();
 		provider.setUserDetailsService(userDetailsService);
 		provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
-		return provider;
-		
+		return provider;		
 	}
 
 	@Override
@@ -38,10 +37,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.
 		csrf().disable()
 		.authorizeRequests()		
-		.antMatchers("/home").hasAnyRole("home")
-		.antMatchers("/casadeshow").hasAnyRole("casashow")
-		.antMatchers("/eventos").hasAnyRole("eventos")
-		.antMatchers("/historico").hasAnyRole("historico")
+		.antMatchers("/home").permitAll()
+		.antMatchers("/casadeshow").permitAll()
+		.antMatchers("/eventos").permitAll()
+		.antMatchers("/historico").permitAll()
+		.antMatchers("/cadastro").permitAll()
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()
@@ -54,16 +54,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	@Override
 	public void configure(WebSecurity config) throws Exception {
-		config.ignoring().antMatchers("/css/**").antMatchers("/js/**");
+		config.ignoring().antMatchers("/css/**").antMatchers("/js/**").antMatchers("/img/**");
 	}
  
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-     
-        auth.inMemoryAuthentication()
-                .withUser("vinicius").password("{noop}Fatima@12").roles("home","casashow","eventos","historico")
-                .and()
-                .withUser("rafa").password("{noop").roles("home","casashow","eventos","historico");
-
-    }
+//    @Override
+//   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//     
+//        auth.inMemoryAuthentication()
+//                .withUser("vinicius").password("{noop}1234").roles("home","casashow","eventos","historico")
+//                .and()
+//                .withUser("rafa").password("{noop").roles("home","historico");
+///
+//    }
 }
