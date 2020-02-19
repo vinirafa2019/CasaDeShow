@@ -21,3 +21,11 @@
 .fundo{
 	background-image: "/img/imagem.jpg";
 }
+.butt{
+	
+	margin-bottom: 15px;
+	
+}
+body{ 
+	background-image: url("/img/imagem.jpg");
+}

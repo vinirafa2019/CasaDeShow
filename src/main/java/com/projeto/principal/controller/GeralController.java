@@ -1,20 +1,23 @@
 package com.projeto.principal.controller;
 
 
+
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.projeto.principal.model.CasaShow;
 import com.projeto.principal.model.Evento;
+import com.projeto.principal.model.UserPrincipal;
 import com.projeto.principal.model.Usuarios;
 import com.projeto.principal.repository.CasasShowsRep;
 import com.projeto.principal.repository.EventosRep;
@@ -29,17 +32,13 @@ public class GeralController {
 	private EventosRep eventos;
 	@Autowired
 	private CasasShowsRep casas;
-	
-	@Autowired
-	private UserRepository users;
-	
-	@RequestMapping("/login")
-	public String login() {
-		ModelAndView mv = new ModelAndView("Login");
-		List<Usuarios>todosUsuario = users.findAll();
-		mv.addObject("usuario",todosUsuario);
-		return "Login";	
+		
+	@RequestMapping(method = RequestMethod.GET, path = "/login")
+	public String login() { 
+
+		return "Login";			
 	}
+
 	
 	@RequestMapping
 	public ModelAndView compras() {
@@ -65,7 +64,6 @@ public class GeralController {
 				attributess.addFlashAttribute("mensagem","Ingresso esgotados!!");
 			}
 			return "redirect:/";	
-	}
+	}		
 	
-		
 }

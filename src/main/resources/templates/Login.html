@@ -5,12 +5,13 @@
 <meta charset="UTF-8">
 <title>Login Casa de Show</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" th:ref="/css/Style.css">
+<link rel="stylesheet" href="/css/Style.css">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 <body>
-	<div class="card container fundo">
+
+	<div class="card container">
 		<div class="alert alert-success"
 			th:if="${!#strings.isEmpty(mensagem)}">
 			<button type="button" class="close" data-dismiss="alert"></button>
@@ -25,20 +26,24 @@
 		<div class="card-header">
 			<h3>Login</h3>
 		</div>
-		<form action="/login" method="POST" >
-			<div class="form-group">
-				<label for="username">Nome</label> <input type="text"
-					class="form-control" id="username" name="username">
+		<form action="/login" method="POST">
+		<div class="">
+			<input type="hidden" name="id">
+			<div class="form-group col-6 col-md-4">
+				<label>Nome</label> <input type="text"
+					class="form-control" name="username">
 			</div>
-			<div class="form-group">
-				<label for="password">Senha</label> <input
-					id="password"type="password" class="form-control" name="password">
-			</div>
-			<button type="submit" class="btn btn-primary">Entrar</button>
-			<a class="btn btn-primary" href="/cadastro"> <span></span>Cadastrar
+			<div class="form-group col-6 col-md-4">
+				<label>Senha</label> <input
+					type="password" class="form-control" name="password"><br>
+				<button type="submit" class="btn btn-primary col-6 col-md-5">Entrar</button>
+				<a class="btn btn-primary col-7 col-md-5" href="/cadastro"> <span></span>Cadastrar
 			</a>
+			</div>
+		</div>
 		</form>
-	</div>
+	</div>	
+	
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>

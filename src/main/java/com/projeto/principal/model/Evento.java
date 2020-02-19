@@ -53,7 +53,7 @@ public class Evento {
 	
 
 	@ManyToOne
-	@JoinColumn(name = "endereco_id", nullable =false)
+	@JoinColumn(name = "endereco_id")
 	@NotNull(message = "Cadastre ou selecione uma Casa de Show")
 	private CasaShow endereco;
 	

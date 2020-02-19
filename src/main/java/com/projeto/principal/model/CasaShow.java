@@ -28,7 +28,7 @@ public class CasaShow {
 	private String endereco;
 	
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "endereco",orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "endereco")
 	private List <Evento> endereco1;
 	
 	public List<Evento> getEndereco1() {
