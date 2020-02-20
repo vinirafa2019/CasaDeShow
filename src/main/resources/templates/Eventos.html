@@ -9,7 +9,7 @@
 <title>Casa de Show</title>
 </head>
 <section layout:fragment="conteudo"> 
-  <form class="form-horinzontal" method="POST" action="/eventos" th:object="${evento}">
+  <form class="form-horinzontal" method="POST" action="/eventos" enctype="multipart/form-data" th:object="${evento}">
 <div layout:insert="MensagemErro"></div>
 <div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}"> 
 	<button type="button" class="close" data-dismiss="alert"></button>
@@ -22,23 +22,23 @@
 	<div class="cardy-body bd">
 	<input type="hidden" th:field="*{id}">
 		<div class="row">
-			<label for="descricao" class="col-1 col-form-label">Evento</label>
+			<label for="descricao" class="col-1 col-form-label ">Evento</label>
 			<div>
-				<input type="text" class="form-control" id="descricao" th:field="*{descricao}"
+				<input type="text" class="form-control fundo" id="descricao" th:field="*{descricao}"
 				th:classappend="${#fields.hasErrors('descricao')} ? is-invalid">
 			</div>
 		</div>
 		<div class="row">
 			<label for="capacidade" class="col-1 col-form-label">Capacidade</label>
 			<div>
-				<input type="text" class="form-control" id="capacidade" th:field="*{capacidade}"
+				<input type="text" class="form-control fundo" id="capacidade" th:field="*{capacidade}"
 				th:classappend="${#fields.hasErrors('capacidade')} ? is-invalid">
 			</div>
 		</div>
 		<div class="row">
 			<label for="data" class="col-sm-1 col-form-label">Data</label>
 			<div>
-				<input type="text" class="form-control" id="data" th:field="*{data}"
+				<input type="text" class="form-control fundo" id="data" th:field="*{data}"
 				th:classappend="${#fields.hasErrors('data')} ? is-invalid">
 			</div>
 		</div>
@@ -46,7 +46,7 @@
 			<label for="Valoringresso" class="col-sm-1 col-form-label">Valor
 				do ingresso</label>
 			<div>
-				<input type="text" class="form-control" id="Valoringresso" th:field="*{Valoringresso}"
+				<input type="text" class="form-control fundo" id="Valoringresso" th:field="*{Valoringresso}"
 				th:classappend="${#fields.hasErrors('Valoringresso')} ? is-invalid">
 			
 			</div>
@@ -54,7 +54,7 @@
 		<div class="form-row align-items-center">
 			<div class="col-auto my-1">
 				<label class="mr-sm-2 sr-only" for="casashow">Preference</label>
-				<select class="custom-select mr-sm-2" id="nomecasa" th:field="*{endereco}">
+				<select class="custom-select mr-sm-2 " id="nomecasa" th:field="*{endereco}">
 				<option value="">Escolha uma Casa de Show</option>
 						<option th:each="ende : ${casas}" th:value="${ende.id}" th:text="${ende.nomecasa}"></option>
 				</select>
@@ -69,6 +69,10 @@
 					</select>
 			</div>	
 		</div>
+		  <div class="form-group">
+    		 <label for="exampleFormControlFile1">Example file input</label>
+   			 <input type="file" class="form-control-file" id="exampleFormControlFile1" name="file">
+  		  </div>
 		<div>
 			<button type="submit" class="btn btn-primary but">Enviar</button>
 		</div>
@@ -83,7 +87,7 @@
 				<th class="text-center">Preço do ingresso</th>
 				<th class="text-center">Casa de show</th>
 				<th class="text-center">Editar</th>
-				<th class="text-center">deletar</th>
+				<th class="text-center">deletar</th> 
 			</tr>
 		</thead>
 		<tbody>
@@ -95,11 +99,11 @@
 				<td class="text-center"  th:text="${eventos.endereco.nomecasa}"></td>								
 				<td class="text-center"><a class="btn btn-link"
 					th:href="@{/eventos/{id}(id=${eventos.id})}"> <i
-					class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar">Editar</i></a>
+					class="btn btn-dark" data-toggle="tooltip" title="Editar">Editar</i></a>
 				</td>
 				<td class="text-center"><a class="btn btn-link" data-toggle="modal"	data-target="#confirmacaoExclusaoModal1"
 					th:attr="data-id=${eventos.id} , data-descricao=${eventos.descricao}">
-					<i class="fas fa-file-excel" data-toggle="tooltip" title="Excluir">Excluir</i></a>
+					<i class="btn btn-dark" data-toggle="tooltip" title="Excluir">Excluir</i></a>
 				</td>
 			</tr>
 			

@@ -1,6 +1,11 @@
 package com.projeto.principal.controller;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,6 +17,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,9 +30,12 @@ import com.projeto.principal.model.TodosEstilos;
 import com.projeto.principal.repository.CasasShowsRep;
 import com.projeto.principal.repository.EventosRep;
 
+
 @Controller
 @RequestMapping("/eventos")
 public class EventosController {
+	
+	private static String caminhoImagens= "C:/Users/VEDM/Desktop/imagens/";
 	
 	private static final String EVENTO_VIEW ="Eventos";
 	@Autowired
@@ -47,7 +58,8 @@ public class EventosController {
 			
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView salvar(@Validated Evento evento, Errors errors,RedirectAttributes attributes) {		
+	public ModelAndView salvar(@Validated Evento evento, Errors errors,RedirectAttributes attributes,
+			@RequestParam("file") MultipartFile arquivo) {		
 		ModelAndView mv= new ModelAndView("Eventos");
 		if(errors.hasErrors()) {			
 		
@@ -56,9 +68,22 @@ public class EventosController {
 			List<CasaShow>todasCasas = casas.findAll();
 			mv.addObject("casas",todasCasas);
 			return mv;
-		}		
+		}	
+		
 		evento.setQtddisponivel(evento.getCapacidade());
 		eventos.save(evento);
+		try {
+			if(!arquivo.isEmpty()) {
+				byte[] bytes = arquivo.getBytes();
+				Path caminho = Paths.get(caminhoImagens+String.valueOf(evento.getId())+arquivo.getOriginalFilename()); 
+				Files.write(caminho, bytes);
+				
+				evento.setNomeImagem(String.valueOf(evento.getId())+arquivo.getOriginalFilename());
+				eventos.save(evento);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 				
 		mv.addObject("mensagem", " Evento salvo com sucesso");		
 		mv.addObject(new Evento());
@@ -88,6 +113,7 @@ public class EventosController {
 		attributes.addFlashAttribute("mensagem", "Evento excluído com sucesso");
 		return "redirect:/eventos";		
 	}
+	
 	@ModelAttribute("todosEstilos")
 	public List<TodosEstilos>todosStatusTitulo(){
 		return Arrays.asList(TodosEstilos.values());

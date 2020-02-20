@@ -11,8 +11,8 @@
 </head>
 <body>
 
-	<div class="card container">
-		<div class="alert alert-success"
+	<div class="card container" style="background-color: rgba(10, 0, 0, 0);">
+		<div class="alert alert-success text-center"
 			th:if="${!#strings.isEmpty(mensagem)}">
 			<button type="button" class="close" data-dismiss="alert"></button>
 			<span th:text="${mensagem}"></span>
@@ -24,7 +24,7 @@
 			<div class="alert alert-info">Saiu do sistema!!</div>
 		</div>
 		<div class="card-header">
-			<h3>Login</h3>
+			<h1>Login</h1>
 		</div>
 		<form action="/login" method="POST">
 		<div class="">

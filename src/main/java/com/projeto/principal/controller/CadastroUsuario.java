@@ -4,11 +4,10 @@ package com.projeto.principal.controller;
 
 
 
-import javax.annotation.security.PermitAll;
 
-import org.hibernate.secure.spi.PermissibleAction;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;

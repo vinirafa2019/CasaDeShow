@@ -22,6 +22,8 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
+import net.bytebuddy.implementation.bind.annotation.Empty;
+
 
 @Entity
 public class Evento {
@@ -61,6 +63,18 @@ public class Evento {
 	@Enumerated(EnumType.STRING)
 	private TodosEstilos estilos;
 	
+//	@NotEmpty(message = "Favor escolher uma imagem")
+	private String nomeImagem;
+	
+	
+	
+	
+	public String getNomeImagem() {
+		return nomeImagem;
+	}
+	public void setNomeImagem(String nomeImagem) {
+		this.nomeImagem = nomeImagem;
+	}
 	public TodosEstilos getEstilos() {
 		return estilos;
 	}
