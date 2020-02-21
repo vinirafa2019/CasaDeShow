@@ -8,7 +8,7 @@ import com.projeto.principal.model.Usuarios;
 
 public interface UserRepository extends JpaRepository<Usuarios, Long> {
 
-	Usuarios findByUsername(String username);
+	Usuarios findByUsername(String admin);
 
 
 }

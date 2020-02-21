@@ -18,13 +18,13 @@
 					<h1>Bem Vindo</h1>
 				</div>
 			<div class="list-group-item fundo" th:each="eventos: ${eventos}">
-				<img th:src="@{/home/imagem/{imagem}(imagem=${eventos.nomeImagem})}" width="100px">
+				<img class="img-fluid" alt="responsive image" th:src="@{/home/imagem/{imagem}(imagem=${eventos.nomeImagem})}" width="450px">
 				<h5 th:text="${eventos.descricao}"></h5>
 				<h6 th:text="|Preço do ingresso: R$ ${{eventos.Valoringresso}}|"></h6>
 				<h6 th:text="|Ingressos Restantes: ${{eventos.data}} |"></h6>
 				<h6 th:text="|Local Do Evento: ${eventos.endereco.nomecasa}|"></h6>
 				<h6 th:text="|Ingressos Restantes: ${eventos.qtddisponivel} |"></h6>
-				<a  type="submit"class="btn btn-primary" th:href="@{/{id}(id=${eventos.id})}">Comprar</a>
+				<a  type="submit"class="btn btn-primary" th:href="@{/adicionarCarrinho/{id}(id=${eventos.id})}">Comprar</a>
 			</div>
 				<h6 th:if="${#lists.isEmpty(eventos)}">Nenhum Evento Cadastrado</h6>
 		</div>

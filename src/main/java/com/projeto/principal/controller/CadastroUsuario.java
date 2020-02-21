@@ -39,7 +39,7 @@ public class CadastroUsuario {
 		
 		if(errors.hasErrors()) {
 			return mc;
-		}
+		}		
 		users.save(usuario);
 		return mv;
 	}	

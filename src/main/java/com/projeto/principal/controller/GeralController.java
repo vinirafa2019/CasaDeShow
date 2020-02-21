@@ -50,22 +50,7 @@ public class GeralController {
 		mv.addObject("casas",todasCasas);
 		return mv;	
 	}	
-	@RequestMapping("{id}")
-	public String comprar(@PathVariable Long id, RedirectAttributes attributess) {
-
-			ModelAndView mv = new ModelAndView("Home");
-			
-			Optional<Evento> todosEventos = eventos.findById(id);
-			int des = 1 ;
-			if (todosEventos.get().getQtddisponivel() > 0) {
-					todosEventos.get().setQtddisponivel(todosEventos.get().getQtddisponivel() - des);
-			mv.addObject(todosEventos.get().getQtddisponivel());
-			eventos.save(todosEventos.get());}
-			else {
-				attributess.addFlashAttribute("mensagem","Ingresso esgotados!!");
-			}
-			return "redirect:/";	
-	}	
+	
 	@RequestMapping("/home/imagem/{imagem}")
 	@ResponseBody
 	public byte [] retornaimagem(@Validated @PathVariable("imagem") String imagem,RedirectAttributes attributes) throws IOException {
@@ -74,6 +59,5 @@ public class GeralController {
 			return Files.readAllBytes(imagemArquivo.toPath());
 		}
 		return null;
-	}
-	
+	}	
 }

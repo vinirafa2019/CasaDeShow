@@ -16,7 +16,7 @@
 			th:if="${!#strings.isEmpty(mensagem)}">
 			<button type="button" class="close" data-dismiss="alert"></button>
 			<span th:text="${mensagem}"></span>
-		</div>
+		</div><div layout:insert="MensagemErro"></div>
 		<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
 			<div th:each=" detailedError : ${#fields.detailedErrors()}">
 				<span th:text="${detailedError.message}"></span>
@@ -28,6 +28,14 @@
 		</div>
 		<div>
 		<input type="hidden" name="id">
+			<div class="col-auto my-1">
+				<label class="mr-sm-2 sr-only" for="casashow">Preference</label>
+				<select class="custom-select mr-sm-2 " id="TIPO" name="admin">
+				<option value="">Escolha um tipo de usuario</option>
+						<option value="true">ADMIN</option>
+						<option value="false">USER</option>
+				</select>
+			</div>
 			<div class="form-group col-6 col-md-4">
 				<label for="username">Nome</label> <input type="text"
 					class="form-control" id="username" name="username">
