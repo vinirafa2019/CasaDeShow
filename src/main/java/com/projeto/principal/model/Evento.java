@@ -50,7 +50,7 @@ public class Evento {
 	@DecimalMin(value="0.01", message="Valor do ingresso nao pode ser menor que 0,01")
 	@DecimalMax(value ="9999999999.99",message="Valor no pode ser mais que 9.999.999.999,99 ")
 	@NumberFormat(pattern = "#,##0.00")
-	private BigDecimal Valoringresso;
+	private float Valoringresso;
 	
 	
 
@@ -117,10 +117,10 @@ public class Evento {
 	public void setData(Date data) {
 		this.data = data;
 	}
-	public BigDecimal getValoringresso() {
+	public float getValoringresso() {
 		return Valoringresso;
 	}
-	public void setValoringresso(BigDecimal valoringresso) {
+	public void setValoringresso(float valoringresso) {
 		Valoringresso = valoringresso;
 	}
 	

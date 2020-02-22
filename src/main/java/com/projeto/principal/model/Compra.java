@@ -15,7 +15,6 @@ public class Compra {
 	
 	public Compra() {}
 	
-	private static final long serialVersion=1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,13 +27,23 @@ public class Compra {
 		return even;
 	}
 
+	private float Valortotal;
+	
+	public float getValortotal() {
+		return Valortotal;
+	}
+
+	public void setValortotal(float valortotal) {
+		Valortotal = valortotal;
+	}
+
 	public void setEven(Evento even) {
 		this.even = even;
 	}
 
-	private int quantidade;
+	private int quantidade = 0;
 	
-	private BigDecimal Valorunitario;
+	private float Valorunitario;
 	
 	public Long getId() {
 		return id;
@@ -52,11 +61,11 @@ public class Compra {
 		this.quantidade = quantidade;
 	}
 
-	public BigDecimal getValorunitario() {
+	public float getValorunitario() {
 		return Valorunitario;
 	}
 
-	public void setValorunitario(BigDecimal valorunitario) {
+	public void setValorunitario(float valorunitario) {
 		Valorunitario = valorunitario;
 	}
 }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="https://www.thymeleaf.org/thymelaf-extras-springsecurity5"
+	layout:decorator="Layout">
+<head>
+<meta charset="UTF-8">
+<title>Historico</title>
+</head>
+<body>
+<section layout:fragment="conteudo">
+<div class="card text-center fundo">
+		<h1>
+			Historico do <span sec:authentication="principal.username"></span>
+		</h1>
+			<div class="row" th:object="${eventos}">
+				<div class="col-12">
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th scope="col">Imagem Show</th>
+									<th scope="col">Nome do Show</th>
+									<th scope="col" class="text-center">Quantidade</th>
+									<th scope="col" class="text-right">Preço</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="compra: ${compraeventos}">
+									<td><img
+										th:src="@{/home/imagem/{imagem}(imagem=${compra.Even.nomeImagem})}"
+										width="100px" /></td>
+									<td th:text="${compra.Even.descricao}"></td>
+									<td class="text-center"><span
+										th:text="${compra.quantidade}"></span></td>
+									<td class="text-right"th:text="${#numbers.formatCurrency(compra.Valorunitario)}"></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td><strong>Total</strong></td>
+									<td class="text-right" th:text="${#numbers.formatCurrency(#aggregates.sum(compraeventos.![Valorunitario]))}"
+									><strong></strong></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+</div>
+</section>
+</body>
+</html>

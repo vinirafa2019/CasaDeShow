@@ -45,18 +45,16 @@ th{
 	margin-bottom: 15px;
 	
 }
-body{ 
-	background-image: url("/img/imagem.jpg");
-	max-width: 100%;
-	background-repeat: no-repeat;
-}
 
 body {
-  display: compact;
   width: 100%;
   color: white;
-  background-position: 30% 45%;
-  background-size: cover;
+  background-position: initial;
+  background-image: url("/img/imagem.jpg");
+  max-width: 100%;
+  background-size: inherit;
+}
+  
 }
 
 

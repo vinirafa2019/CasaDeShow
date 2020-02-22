@@ -31,10 +31,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.
 		csrf().disable()
 		.authorizeRequests()		
-		.antMatchers("/").permitAll()
+		.antMatchers("/").hasAnyAuthority("ADMIN","USER")
 		.antMatchers("/casadeshow").hasAuthority("ADMIN")
 		.antMatchers("/eventos").hasAuthority("ADMIN")
-		.antMatchers("/historico").hasAuthority("USER")
+		.antMatchers("/historico").hasAnyAuthority("USER","ADMIN")
 		.antMatchers("/cadastro").permitAll()
 		.anyRequest().authenticated()
 		.and()

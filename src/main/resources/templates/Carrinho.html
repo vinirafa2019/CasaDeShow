@@ -2,63 +2,86 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="https://www.thymeleaf.org/thymelaf-extras-springsecurity5"
 	layout:decorator="Layout">
 <head>
 <meta charset="UTF-8">
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
 <title>Casa de Show</title>
 </head>
 <section layout:fragment="conteudo">
-<!------ Include the above in your HEAD tag ---------->
-
-
-<div class="container mb-4">
-    <div class="row" th:object="${eventos}">
-        <div class="col-12">
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Imagem Show</th>
-                            <th scope="col">Nome do Show</th>
-                            <th scope="col" class="text-center">Quantidade</th>
-                            <th scope="col" class="text-right">Preço</th>
-                            <th> </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="compra: ${compraeventos}">
-                            <td><img th:src="@{/home/imagem/{imagem}(imagem=${nomeImagem})}"width="100px" /> </td>
-                            <td th:text="${compra.Even.descricao}"></td> 
-                            <td><input class="form-control" type="text" value="" /></td>
-                            <td class="text-right" th:text="${compra.Valorunitario}"></td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><strong>Total</strong></td>
-                            <td class="text-right"><strong></strong></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-</div>
-<div class="col mb-2">
-            <div class="row">
-                <div class="col-sm-12  col-md-6">
-                    <button class="btn btn-block btn-light">Continar compra</button>
-                </div>
-                <div class="col-sm-12 col-md-6 text-right">
-                    <button class="btn btn-lg btn-block btn-success text-uppercase">Finalizar compra</button>
-                </div>
-            </div>
-        </div>
-</div>
-
+	<!------ Include the above in your HEAD tag ---------->
+	<div class="container mb-4">
+		<h1>
+			Compra do <span sec:authentication="principal.username"></span>
+		</h1>
+		<form method="post" action="/carrinho">
+			<div class="row" th:object="${eventos}">
+				<div class="col-4">
+				<select class="custom-select">
+					<option selected>Selecione a forma de pagamento</option>
+					<option value="Cartao de Credito">Cartão de credito</option>
+					<option value="Boleto">Boleto</option>
+					<option value="Cartao de Debito">Cartao de Debito</option>
+					<option value="Transferencia">Transferencia</option>
+				</select>
+				</div>
+				<div class="col-12">
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th scope="col">Imagem Show</th>
+									<th scope="col">Nome do Show</th>
+									<th scope="col" class="text-center">Quantidade</th>
+									<th scope="col" class="text-right">Preço</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="compra: ${compraeventos}">
+									<td><img
+										th:src="@{/home/imagem/{imagem}(imagem=${compra.Even.nomeImagem})}"
+										width="100px" /></td>
+									<td th:text="${compra.Even.descricao}"></td>
+									<td class="text-center"><span
+										th:text="${compra.quantidade}"></span></td>
+									<td class="text-right"
+										th:text="${#numbers.formatCurrency(compra.Valorunitario)}"></td>
+									<td class="text-right"><a type="submit"
+										class="btn btn-sm btn-danger"
+										th:href="@{/carrinho/{id}(id=${compra.Even.id})}">Excluir</a>
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td><strong>Total</strong></td>
+									<td class="text-right"
+										th:text="${#numbers.formatCurrency(#aggregates.sum(compraeventos.![Valorunitario]))}"><strong></strong></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="col mb-2">
+			<div class="row">
+				<div class="col-sm-12  col-md-6">
+					<a href="/"><button class="btn btn-block btn-light">Continar
+							compra</button></a>
+				</div>
+				<div class="col-sm-12 col-md-6 text-right">
+					<a href="/historico"
+						class="btn btn-lg btn-block btn-success text-uppercase">Finalizar
+						compra</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>

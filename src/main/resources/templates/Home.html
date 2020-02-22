@@ -2,9 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="https://www.thymeleaf.org/thymelaf-extras-springsecurity5"
 	layout:decorator="Layout">
 <head>
 <meta charset="UTF-8">
+
 <title>Casa de Show</title>
 </head>
 <section layout:fragment="conteudo">
@@ -15,7 +17,7 @@
 				<span th:text="${mensagem}"></span>
 			</div>
 				<div class="card-tittle">
-					<h1>Bem Vindo</h1>
+					<h1>Bem Vindo <span sec:authentication="principal.username"></span></h1>
 				</div>
 			<div class="list-group-item fundo" th:each="eventos: ${eventos}">
 				<img class="img-fluid" alt="responsive image" th:src="@{/home/imagem/{imagem}(imagem=${eventos.nomeImagem})}" width="450px">
