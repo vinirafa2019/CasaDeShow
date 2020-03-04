@@ -11,6 +11,12 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+
+
 @Entity
 public class CasaShow {
 
@@ -18,18 +24,22 @@ public class CasaShow {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	
+	@JsonInclude(Include.NON_NULL)
 	@NotEmpty(message="Campo Casa Show nao pode ficar vazio!!!")
 	@Size(max = 50, message="Favor preencher o campo Casa Show com ate 50 caracteres")
 	private String nomecasa;	
 	
+	
+	@JsonInclude(Include.NON_NULL)
 	@NotEmpty(message="Campo Endereço nao pode ficar vazio")
 	@Size(max = 50, message="Favor preencher o campo Endereço com no maximo 50 caracteres")
 	private String endereco;
 	
-	
+	@JsonIgnore
+	@JsonInclude(Include.NON_NULL)
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "endereco")
 	private List <Evento> endereco1;
+	
 	
 	public List<Evento> getEndereco1() {
 		return endereco1;

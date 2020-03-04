@@ -1,71 +1,67 @@
 package com.projeto.principal.model;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 
 @Entity
-public class Compra implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class ItensCompra {
 
-
-
-	public Compra() {
-		super(); 
-	}
-	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	
+	
 	@ManyToOne
-	private  Usuarios usuario;
+	private Evento even;
 	
-	public Usuarios getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(Usuarios usuario) {
-		this.usuario = usuario;
-	}
-	public Date getDatacompra() {
-		return datacompra;
-	}
-	public void setDatacompra(Date datacompra) {
-		this.datacompra = datacompra;
-	}
+	@ManyToOne
+	private Compra compra;
 
-
-	private String formaPagamento; 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date datacompra=new Date();	
-
-	 
+	private int quantidade=0;
 	
-	public String getFormaPagamento() {
-		return formaPagamento;
-	}
-	public void setFormaPagamento(String formaPagamento) {
-		this.formaPagamento = formaPagamento;
-	}	
+	private float valorunitario;
 
+	private double Valortotal;
+	
+	public double getValortotal() {
+		return Valortotal;
+	}
+	public void setValortotal(double valortotal) {
+		Valortotal = valortotal;
+	}
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public Evento getEven() {
+		return even;
+	}
+	public void setEven(Evento even) {
+		this.even = even;
+	}
+	public Compra getCompra() {
+		return compra;
+	}
+	public void setCompra(Compra compra) {
+		this.compra = compra;
+	}
+	public int getQuantidade() {
+		return quantidade;
+	}
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+	public float getValorunitario() {
+		return valorunitario;
+	}
+	public void setValorunitario(float f) {
+		this.valorunitario = f;
 	}
 	@Override
 	public int hashCode() {
@@ -82,7 +78,7 @@ public class Compra implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Compra other = (Compra) obj;
+		ItensCompra other = (ItensCompra) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -90,4 +86,7 @@ public class Compra implements Serializable{
 			return false;
 		return true;
 	}
+	
+	
+	
 }

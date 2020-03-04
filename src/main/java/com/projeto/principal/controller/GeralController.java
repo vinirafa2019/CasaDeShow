@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -15,13 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.projeto.principal.model.CasaShow;
-import com.projeto.principal.model.Compra;
 import com.projeto.principal.model.Evento;
 import com.projeto.principal.repository.CasasShowsRep;
-import com.projeto.principal.repository.ComprarRep;
 import com.projeto.principal.repository.EventosRep;
-import com.projeto.principal.repository.UserRepository;
 
 
 

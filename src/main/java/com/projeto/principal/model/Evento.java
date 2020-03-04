@@ -1,6 +1,5 @@
 package com.projeto.principal.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -22,7 +21,10 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
-import net.bytebuddy.implementation.bind.annotation.Empty;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 
 @Entity
@@ -36,29 +38,31 @@ public class Evento {
 	@Size(max = 60,message="A descricao nao pode conter mais que 60 caracteres")
 	private String descricao;
 	
-	@NotNull(message ="Valor não pode ser nulo")
+	//@NotNull(message ="Valor não pode ser nulo")
 	@DecimalMin(value="1", message="Capacidade nao pode ser menor que 1")
 	private int capacidade;
 	private int qtddisponivel;
 	
-	@NotNull(message = "Data não pode ser nulo")
+	//@NotNull(message = "Data não pode ser nulo")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date data;
 	
-	@NotNull(message = "Valor do ingresso não pode ser nulo")
+	//@NotNull(message = "Valor do ingresso não pode ser nulo")
 	@DecimalMin(value="0.01", message="Valor do ingresso nao pode ser menor que 0,01")
 	@DecimalMax(value ="9999999999.99",message="Valor no pode ser mais que 9.999.999.999,99 ")
 	@NumberFormat(pattern = "#,##0.00")
 	private float Valoringresso;
 	
 	
-
 	@ManyToOne
 	@JoinColumn(name = "endereco_id")
 	@NotNull(message = "Cadastre ou selecione uma Casa de Show")
+	@JsonInclude(Include.NON_NULL)
 	private CasaShow endereco;
 	
+	@JsonInclude(Include.NON_NULL)
 	@NotNull(message="Por favor  escolha um genero")
 	@Enumerated(EnumType.STRING)
 	private TodosEstilos estilos;

@@ -6,15 +6,11 @@ package com.projeto.principal.model;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -41,18 +37,7 @@ public class Usuarios implements UserDetails , Serializable{
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
-//	@ManyToMany
-//    @JoinTable(name = "usuarios_role", joinColumns = @JoinColumn(name="cadastrousuario",referencedColumnName = "admin"),
-//    inverseJoinColumns = @JoinColumn(
-//    		name ="role_id",referencedColumnName = "nomeRole"))
-//    private List<Role>roles;
-//    
-//	public List<Role> getRoles() {
-//		return roles;
-//	}
-//	public void setRoles(List<Role> roles) {
-//		this.roles = roles;
-//	}
+
 	public String getpassword() {
         return password;
     }
